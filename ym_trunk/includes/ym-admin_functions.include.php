@@ -12,7 +12,7 @@ $ym_nav = array();
 function ym_admin_user_has_access($account_interface=false) {
 	get_currentuserinfo();
 	global $ym_sys, $current_user;
-	
+
 	$return = false;
 
 	$cap = 'activate_plugins';
@@ -21,9 +21,9 @@ function ym_admin_user_has_access($account_interface=false) {
 		// activation mode
 		return current_user_can($cap);
 	}
-	
+
 	$check_against = ($account_interface ? $ym_sys->account_interface_admin_role : $ym_sys->admin_role);
-	
+
 	if ($current_user->ID) {
 		switch ($check_against) {
 			case 'administrator':
@@ -42,10 +42,10 @@ function ym_admin_user_has_access($account_interface=false) {
 				$cap = 'read';
 				break;
 		}
-	
+
 		$return = current_user_can($cap);
 	}
-	
+
 	return $return;
 }
 
@@ -62,11 +62,11 @@ Box widgets
 */
 function ym_box_top($title='', $collapse=false, $is_collapsed=false) {
 	echo '<div class="postbox ym_postbox ';
-	
+
 	if ($collapse && $is_collapsed) {
 		echo ' closed';
 	}
-	
+
 	echo '" style="margin-top: 10px;">';
 	if ($collapse) {
 		echo '<div class="ymhandlediv handlediv" title="' . __('Click to Toggle', 'ym') . '"><br /></div>';
@@ -261,12 +261,12 @@ function ym_admin_script_init() {
 	// commons
 	wp_enqueue_script('jquery');
 	if (YM_WP_VERSION >= '3.6') {
-		//http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js
+		////ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js
 		wp_deregister_script( 'jquery-ui-core' );
 		wp_deregister_script( 'jquery-ui-dialog' );
 		wp_deregister_script( 'jquery-ui-tabs' );
 
-		wp_enqueue_script('jquery-ui-core','http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
+		wp_enqueue_script('jquery-ui-core','//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
 
 	}
 
@@ -276,7 +276,7 @@ function ym_admin_script_init() {
 
 	// make ui css common
 
-	wp_enqueue_style('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css');
+	wp_enqueue_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css');
 	wp_enqueue_style('jquery-ui-override', YM_CSS_DIR_URL . 'ym-jquery_ui_override.css');
 
 	if ($page == YM_ADMIN_FUNCTION || defined('YM_ADMIN_IFRAME')) {
@@ -285,8 +285,8 @@ function ym_admin_script_init() {
 		wp_enqueue_style('ym_admin_css', YM_CSS_DIR_URL . 'ym_admin.css' , false, YM_PLUGIN_VERSION, 'all');
 		wp_enqueue_style('ym_icons_css', YM_CSS_DIR_URL . 'ym_icons.css' , false, YM_PLUGIN_VERSION, 'all');
 		if (YM_WP_VERSION >= '3.6') {
-			wp_enqueue_script('jquery-ui-dialog','http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
-			wp_enqueue_script('jquery-ui-tabs','http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
+			wp_enqueue_script('jquery-ui-dialog','//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
+			wp_enqueue_script('jquery-ui-tabs','//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
 		}
 		else{
 			wp_enqueue_script('jquery-ui-dialog');
@@ -297,7 +297,7 @@ function ym_admin_script_init() {
 		wp_enqueue_script('ym_jq_table', YM_JS_DIR_URL . 'jquery.fixedtable.js', array('jquery'), YM_PLUGIN_VERSION);
 		wp_enqueue_script('ym_admin_js', YM_JS_DIR_URL . 'ym_admin.js', array('jquery', 'jquery-ui-sortable', 'ym_jq_table'), YM_PLUGIN_VERSION);
 		wp_enqueue_script('ym-admin-ajax', YM_JS_DIR_URL . 'ym_admin_ajax.js', array('jquery-color', 'jquery'), YM_PLUGIN_VERSION);
-		wp_enqueue_script('ym_formbuilder_js', YM_JS_DIR_URL . 'ym_form_builder.js', array('jquery', 'jquery-ui-sortable', 'ym_jq_table', 'ym_admin_js'), YM_PLUGIN_VERSION); 
+		wp_enqueue_script('ym_formbuilder_js', YM_JS_DIR_URL . 'ym_form_builder.js', array('jquery', 'jquery-ui-sortable', 'ym_jq_table', 'ym_admin_js'), YM_PLUGIN_VERSION);
 		wp_enqueue_script('ym-admin-post', YM_JS_DIR_URL . 'ym_admin_post.js', array('jquery-ui-datepicker', 'jquery-ui-core'), YM_PLUGIN_VERSION);
 
 		// wp editor anyway....
@@ -395,7 +395,7 @@ function ym_admin_nav() {
 			__('Memberships', 'ym')		=> array(
 				__('Packages', 'ym')							=> 'ym-membership-packages',
 				__('Package Types', 'ym')						=> 'ym-membership-package_types',
-				__('Registration Flows', 'ym')					=> 'ym-membership-registration_flows', 
+				__('Registration Flows', 'ym')					=> 'ym-membership-registration_flows',
 				__('Coupons', 'ym')								=> 'ym-membership-coupons',
 				__('Payment Gateways', 'ym')					=> 'ym-payment-gateways',
 			),
@@ -427,7 +427,7 @@ function ym_admin_nav() {
 		if (defined('ym_dev') && $ym_sys->dev_tools) {
 			$pages[__('Advanced', 'ym')][__('Dev Tools', 'ym')] = 'ym-dev-tools';
 		}
-		
+
 		$pages = apply_filters('ym_plugin_preappstore', $pages);//legacy
 		$pages = apply_filters('ym_navigation', $pages);
 
@@ -439,7 +439,7 @@ function ym_admin_nav() {
 				}
 			}
 		}
-		
+
 		global $ym_nav;
 		$ym_nav = $pages;
 
@@ -497,7 +497,7 @@ function ym_admin_menu() {
 				if (FALSE === strpos($first, 'ym-top')) {
 					$first = 'ym-top' . $first;
 				}
-				
+
 				echo '<li><a href="#' . $first . '">' . $page . '</a></li>' . "\n";
 				if ($first == $target) {
 					$target_index = $index;
@@ -520,7 +520,7 @@ function ym_admin_menu() {
 				if (FALSE === strpos($first, 'ym-top')) {
 					$first = 'ym-top' . $first;
 				}
-				
+
 				echo '<div id="' . $first . '" class="ym_subtabs">';
 				echo '<ul>';
 
@@ -534,11 +534,11 @@ function ym_admin_menu() {
 				}
 				echo '</div>';
 			} else {
-				if (!$subpages) { 
+				if (!$subpages) {
 				} else if ($subpages != 'ym-dashboard') {
-					echo '<div id="' . $subpages . '" class="ym_admin_iframe">'; 
-					echo '<iframe src="' . $root_url . $subpages . '" style="width: 100%; height: 800px;"></iframe>'; 
-					echo '</div>'; 
+					echo '<div id="' . $subpages . '" class="ym_admin_iframe">';
+					echo '<iframe src="' . $root_url . $subpages . '" style="width: 100%; height: 800px;"></iframe>';
+					echo '</div>';
 				} else if ($subpages == 'ym-dashboard') {
 echo '
 <div id="ym-dashboard">';
@@ -554,9 +554,9 @@ echo '
 function ym_admin_menu_end() {
 	global $ym_nav, $target_index;
 	$pages = $ym_nav;
-	
+
 	$target = ym_get('ym_tab', $target_index);
-	
+
 	echo '
 </div>
 
@@ -581,13 +581,13 @@ echo "
 						jQuery('#' + url).tabs('option', 'selected', 0);
 						jQuery('#' + url).tabs('option', 'selected', targettab);
 					}
-					
+
 					ym_tab_change(ui.index);
 				}
 			});
 		}
 ";
-		
+
 $this_index = 0;
 foreach ($pages as $top => $subpages) {
 	if (is_array($subpages)) {
@@ -608,15 +608,15 @@ foreach ($pages as $top => $subpages) {
 				url = url.split('#');
 				url = url[1];
 				var idurl = url;
-				
+
 				test = url.split('_');
 				if (test[0] == 'other') {
 					url = url.replace('other_', 'ym-other&amp;action=');
-					
+
 					url = url.replace('--', '&amp;');
 					url = url.replace('---', '=');
 				}
-				
+
 				jQuery('#' + idurl).html('<iframe class=\"ym_its_a_tab\" style=\"width: 100%; height: 800px;\" src=\"" . YM_ADMIN_URL . "&ym_page=' + url + '\"></iframe>');
 			},
 			selected: " . $index . "
@@ -652,7 +652,7 @@ Navigation Driver and YM iFrame
 */
 function ym_admin_page() {
 	global $ym_auth, $ym_nav, $ym_sys, $ym_user;
-	
+
 	$func = 'ym_admin_loader';
 	$read_func = 'ym_admin_read_func';
 	$access = 'manage_options';
@@ -738,7 +738,7 @@ function ym_admin_bar() {
 		$count = 0;
 		foreach ($ym_nav as $page => $subpages) {
 			$id = 'ym_adb_' . strtolower($count);
-			
+
 			$wp_admin_bar->add_menu(
 				array(
 					'parent'	=> YM_ADMIN_FUNCTION . '_adb',
@@ -827,7 +827,7 @@ function ym_admin_iframe($page = FALSE, $action = FALSE, $arg = FALSE) {
 	} else {
 		require_once(YM_PLUGIN_DIR_PATH . 'admin/' . $page . '.php');
 	}
-	
+
 	do_action('ym_post_admin_loader');
 
 	ym_admin_footer($page);
@@ -906,12 +906,12 @@ function ym_rewrite_rule($rules = array()) {
 
 function ym_count_users_by_type($type) {
 	global $wpdb;
-	
-	$sql = 'SELECT COUNT(u.ID) 
+
+	$sql = 'SELECT COUNT(u.ID)
 		FROM
 			' . $wpdb->users . ' u
 			JOIN ' . $wpdb->usermeta . ' um ON (u.ID = um.user_id)
-		WHERE 
+		WHERE
 			um.meta_key = "ym_account_type"
 			AND LOWER(um.meta_value) = "' . mysql_real_escape_string(strtolower($type)) . '"';
 	return $wpdb->get_var($sql);
@@ -919,7 +919,7 @@ function ym_count_users_by_type($type) {
 
 function ym_members_to_date() {
 	global $wpdb, $ym_package_types;
-	
+
 	$totals = array();
 	foreach ($ym_package_types->types as $id=>$type) {
 		$type = ucwords(strtolower($type));
@@ -927,7 +927,7 @@ function ym_members_to_date() {
 		$totals[$type] = 0;
 		}
 	}
-	
+
 	if (!get_option('ym_user_counts_updated')) {
 		$sql = 'SELECT ID FROM ' . $wpdb->users;
 		if ($users = $wpdb->get_results($sql)) {
@@ -1011,7 +1011,7 @@ function ym_check_version($force_ping = FALSE) {
 			$ym_version_resp = $data->json;
 		}
 		$ym_version_resp = json_decode($ym_version_resp);
-		
+
 		if (defined('DISABLE_VERSIONING')) {
 			return;
 		}
@@ -1019,7 +1019,7 @@ function ym_check_version($force_ping = FALSE) {
 		$url = str_replace('version_check', 'metafile', YM_VERSION_CHECK_URL);
 		$url = $url . '&key=' . $key;
 		$ym_update_checker = new PluginUpdateChecker($url, YM_META_BASENAME);//, 'ym');
-		
+
 		add_action('admin_notices', 'ym_nag_nag_box');
 		add_action('after_plugin_row_' . YM_META_BASENAME, 'ym_new_version_download', 10, 3);
 	}
@@ -1034,7 +1034,7 @@ function ym_nag_nag_box() {
 		echo '<div class="update-nag">';
 		echo 'Here follows a message from the ' . YM_ADMIN_NAME . ' Dev Team: ';
 		echo $ym_version_resp->messages->nag;
-		echo '</div>';			
+		echo '</div>';
 	}
 }
 
@@ -1087,7 +1087,7 @@ function ym_action_link($links, $file){
 			$links[] = '<a id="ym_license" href="http://www.yourmembers.co.uk" title="About this plugins License">' . __('License', 'ym') . '</a>';
 		}
 	}
-	
+
 	return $links;
 }
 /**
@@ -1188,7 +1188,7 @@ function ym_tos_check() {
 		// offline
 		return;
 	}
-	
+
 	if ($tos->tos_version_id != $last_tos_version) {
 		// new terms
 		// goto terms page
@@ -1206,13 +1206,13 @@ function ym_tos_check() {
 
 function ym_context_help() {
 	global $wp_version, $ym_auth;
-	
+
 	$string = '<h2>' . YM_ADMIN_NAME . ' ' . __('Support', 'ym') . '</h2>';
 	$string .= '<p><a href="http://YourMembers.co.uk/forum/">' . __('Get Help and Support from the Forums', 'ym') . '</a></p>';
 	$string .= '<p><a href="http://www.yourmembers.co.uk/the-support/guides-tutorials/">' . __('Get Help and Support from the Guides', 'ym') . '</a></p>';
 
 	$string .= '<p>' . sprintf(__('You are running %s %s on WordPress %s on PHP %s with YM Database Version %s/%s', 'ym'), YM_ADMIN_NAME, YM_PLUGIN_VERSION, $wp_version, phpversion(), YM_DATABASE_VERSION, get_option('ym_db_version', 0)) . '</p>';
-	
+
 	get_current_screen()->add_help_tab(array('id' => 'ym_core', 'title' => YM_ADMIN_NAME, 'content' => $string));
 
 	do_action('ym_additional_context_help');
@@ -1292,7 +1292,7 @@ function xml2array($contents, $get_attributes = 1, $priority = 'tag') {
 			}
 		}
 		if ($type == "open")
-		{ 
+		{
 			$parent[$level -1] = & $current;
 			if (!is_array($current) or (!in_array($tag, array_keys($current))))
 			{
@@ -1310,7 +1310,7 @@ function xml2array($contents, $get_attributes = 1, $priority = 'tag') {
 					$repeated_tag_index[$tag . '_' . $level]++;
 				}
 				else
-				{ 
+				{
 					$current[$tag] = array (
 						$current[$tag],
 						$result
@@ -1356,7 +1356,7 @@ function xml2array($contents, $get_attributes = 1, $priority = 'tag') {
 					if ($priority == 'tag' and $get_attributes)
 					{
 						if (isset ($current[$tag . '_attr']))
-						{ 
+						{
 							$current[$tag]['0_attr'] = $current[$tag . '_attr'];
 							unset ($current[$tag . '_attr']);
 						}
@@ -1394,7 +1394,7 @@ $conf_fields = array(
 function ym_check_for_ymconf($file = FALSE) {
 	echo '<pre>';
 	global $wpdb, $conf_fields;
-	
+
 	if (!$file) {
 		$file = YM_PLUGIN_DIR_PATH . 'ym.conf';
 	}
@@ -1405,10 +1405,10 @@ function ym_check_for_ymconf($file = FALSE) {
 			echo '<div id="message" class="error"><p>Import failed, Syntax Errors Detected</p></div>';
 			return;
 		}
-		
+
 		// conf file exists
 		include($file);
-		
+
 		// reg code
 		if ($file != YM_PLUGIN_DIR_PATH . 'ym.conf') {
 			if (isset($data['registration_email'])) {
@@ -1417,7 +1417,7 @@ function ym_check_for_ymconf($file = FALSE) {
 				$_POST['registration_email'] = $data['registration_email'];
 			}
 		}
-		
+
 		// whole objects
 		// found in $data
 		$fields = $conf_fields;
@@ -1426,7 +1426,7 @@ function ym_check_for_ymconf($file = FALSE) {
 				$wpdb->query('UPDATE ' . $wpdb->options . ' SET option_value = \'' . $data[$item] . '\' WHERE option_name = \'' . $item . '\'');
 			}
 		}
-		
+
 		// module componenets
 		// is there a $object of name $object in the conf file
 		// like $ym_packs for example
@@ -1439,7 +1439,7 @@ function ym_check_for_ymconf($file = FALSE) {
 				$wpdb->query('UPDATE ' . $wpdb->options . ' SET option_value = \'' . $theobject . '\' WHERE option_name = \'' . $object . '\'');
 			}
 		}
-		
+
 		// munch modules
 		$modules = array();
 		if ($gateways) {
@@ -1476,22 +1476,22 @@ function ym_check_for_ymconf($file = FALSE) {
 }
 function ym_export_ymconf() {
 	global $wpdb, $conf_fields;
-	
+
 	$data = array();
 	foreach ($conf_fields as $field) {
 		$data[$field] = $wpdb->get_var('SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name = \'' . $field . '\'');
 	}
-	
+
 	$content = '<' . '?' . 'php
 
 /*
-* 
+*
 * YourMembers ym.conf - Auto Gen Export File
-* 
+*
 * ' . site_url() . '
 * Auto Generated Conf Export
 * ' . date('r', time()) . '
-* 
+*
 */
 
 $data = array(
@@ -1518,15 +1518,15 @@ $data = array(
 	foreach ($modules as $module) {
 		$gateways[$module] = $wpdb->get_var('SELECT option_value FROM ' . $wpdb->options . ' WHERE option_name = \'' . $module . '\'');
 	}
-	
+
 	$content .= '
 $gateways = array(
 ';
-	
+
 	foreach ($gateways as $way => $setup) {
 		$content .= '\'' . $way . '\' => \'' . $setup . '\',' . "\n\n";
 	}
-	
+
 	$content .= '
 );
 ';
@@ -1542,7 +1542,7 @@ $gateways = array(
 
 	flush();
 	echo $content;
-	
+
 	exit;
 }
 $test = isset($_POST['go_export']) ? $_POST['go_export'] : '';
@@ -1577,7 +1577,7 @@ function ym_database_updater() {
 			}
 		}
 		update_option('ym_db_version', $current_db_version);
-		
+
 		if ($current_db_version < $target_db_version || $run) {
 			// more to do
 			echo '<meta http-equiv="refresh" content="5" />';
@@ -1628,7 +1628,7 @@ function ym_members_filters($filters) {
 		<option value="status" ' . ($filters['by_option'] == 'status' ? 'selected="selected"' : '') . '>' . __('Status', 'ym') . '</option>
 		';
 
-		echo '		
+		echo '
 		<option value="">--' . __('User Exposed Fields', 'ym') . '--</option>
 		';
 	$funbus = '';
@@ -1734,7 +1734,7 @@ function ym_members_filters($filters) {
 	<option value="registered" ' . ($filters['order_by'] == 'registered' ? 'selected="selected"' : '') . '>' . __('Registration Date', 'ym') . '</option>
 	';
 
-	echo '		
+	echo '
 	<option value="">--' . __('User Exposed Fields', 'ym') . '--</option>
 	';
 	foreach ($available as $item) {
